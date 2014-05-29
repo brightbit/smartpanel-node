@@ -24,3 +24,6 @@ tags
 coverage
 
 setup.lock
+
+# Ignore local configuration envs
+config/*.env.local
