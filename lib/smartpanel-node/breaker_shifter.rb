@@ -16,7 +16,8 @@ module SmartpanelNode
       notifier = INotify::Notifier.new
 
       notifier.watch(shift_state_filename, :modify) do
-        send_bits File.open(shift_state_filename, 'r'){|f| f.read }[22..-1]
+        file = File.open(shift_state_filename, 'r'){|f| f.read }
+        send_bits file[22..-1] unless file.empty?
       end
 
       notifier.run
