@@ -2,7 +2,7 @@ require 'json'
 require 'typhoeus'
 
 base_url = 'https://smartpanel-staging.herokuapp.com/api'
-breakers = SmartpanelNode::Breaker::TOTAL_BREAKERS.times.map {|i| SmartpanelNode::Breaker.new i+1 }
+breakers = SmartpanelNode.config.breaker_mappings.keys.map {|id| SmartpanelNode::Breaker.new id }
 
 module SmartpanelNode
   class BreakerPoller
