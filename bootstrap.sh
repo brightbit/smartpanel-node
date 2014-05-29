@@ -10,6 +10,9 @@ apt-get -y upgrade
 # Install system packages (ruby-dev for pi_piper)
 apt-get install ruby-dev
 
+# Update ruby gems system to the latest
+gem update --system
+
 # Install bundler (used in smartpanel-node software)
 gem install bundler --no-ri --no-rdoc
 
