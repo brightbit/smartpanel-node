@@ -6,6 +6,7 @@ $LOAD_PATH.unshift lib unless $LOAD_PATH.include? lib
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
 require 'bundler/setup'
+require 'logger'
 require 'json'
 require 'smartpanel-node/dotenv'
 require 'smartpanel-node/configuration'
@@ -20,6 +21,7 @@ module SmartpanelNode
   end
 end
 
+require 'inotify_proxy'
 require 'smartpanel-node/breaker'
 require 'smartpanel-node/breaker_shifter'
 require 'smartpanel-node/breaker_states_poller'

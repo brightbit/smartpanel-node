@@ -1,5 +1,8 @@
 require 'pi_piper'
-require 'rb-inotify'
+
+if RUBY_PLATFORM.downcase.include?("darwin")
+  PiPiper::Platform.driver = PiPiper::StubDriver.new#(logger: Logger.new($stdout))
+end
 
 module SmartpanelNode
   class BreakerShifter
@@ -13,9 +16,9 @@ module SmartpanelNode
       shift_state_filename = SmartpanelNode.config.breaker_states_store
       send_bits File.open(shift_state_filename, 'r'){|f| f.read }[22..-1]
 
-      notifier = INotify::Notifier.new
+      notifier = InotifyProxy.new shift_state_filename.dirname.to_s
 
-      notifier.watch(shift_state_filename, :modify) do
+      notifier.watch -> do
         file = File.open(shift_state_filename, 'r'){|f| f.read }
         send_bits file[22..-1] unless file.empty?
       end
@@ -36,6 +39,10 @@ module SmartpanelNode
     def send_bits(data)
       reset
       SmartpanelNode.config.total_breakers.times do |byte|
+        if PiPiper::Platform.driver.is_a? PiPiper::StubDriver
+          puts "Breaker Pin #{byte} #{data[byte] == "1" ? "on" : "off"}"
+        end
+
         PINS[:data].on if data[byte] == "1"
         shift :clock
         PINS[:data].off
