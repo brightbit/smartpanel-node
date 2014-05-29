@@ -20,5 +20,8 @@ require 'smartpanel-node/breaker'
 require 'smartpanel-node/breaker_shifter'
 require 'smartpanel-node/breaker_states_poller'
 
-Thread.new { SmartpanelNode::BreakerShifter.new }.join
-Thread.new { SmartpanelNode::BreakerPoller.new }.join
+shifter_thread = Thread.new { SmartpanelNode::BreakerShifter.new }
+poller_thread = Thread.new { SmartpanelNode::BreakerPoller.new }
+
+shifter_thread.join
+poller_thread.join
