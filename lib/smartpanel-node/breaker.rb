@@ -1,20 +1,12 @@
 module SmartpanelNode
   class Breaker
-    attr_reader :total_breakers, :breakers_mappings, :breakers_states_filename, :id
-
-    #TODO: Read breaker mappings from breaker_mappings.json
-    BREAKERS_MAPPINGS = {  1 => 0 ,  2 =>  1 }
-    #BREAKERS_MAPPINGS = {  1 => 0 ,  2 =>  1,  3 =>  2,  4 =>  3,  5 =>  4,  6 =>  5,  7 =>  6,  8 =>  7,  9 =>  8,
-    #                      10 => 9 , 11 => 10, 12 => 11, 13 => 12, 14 => 13, 15 => 14, 16 => 15 }
-    TOTAL_BREAKERS = BREAKERS_MAPPINGS.count
+    attr_reader :breaker_states_filename, :id
 
     def initialize(id)
-      @breakers_mappings = BREAKERS_MAPPINGS
-      @total_breakers = TOTAL_BREAKERS
-      @breakers_states_filename = '/etc/smartpanel/breakers_states.txt'
+      @breaker_states_filename = SmartpanelNode.config.breaker_states_store
       @id = id
 
-      ensure_breakers_states_file_exists
+      ensure_breaker_states_file_exists
     end
 
     def flip
@@ -38,40 +30,40 @@ module SmartpanelNode
     end
 
     private
-    def ensure_breakers_states_file_exists
-      unless File.exists? breakers_states_filename
-        File.write breakers_states_filename, "0" * total_breakers
+    def ensure_breaker_states_file_exists
+      unless File.exists? breaker_states_filename
+        File.write breaker_states_filename, "0" * SmartpanelNode.config.total_breakers
       end
     end
 
-    def breakers_states_string
-      read_breakers_states
+    def breaker_states_string
+      read_breaker_states
     end
 
-    def breakers_states_string=(value)
-      write_breakers_states value
+    def breaker_states_string=(value)
+      write_breaker_states value
     end
 
-    def read_breakers_states
-      File.open(breakers_states_filename, 'rb'){|f| f.read }
+    def read_breaker_states
+      File.open(breaker_states_filename, 'rb'){|f| f.read }
     end
 
-    def write_breakers_states(value)
-      File.open(breakers_states_filename, 'w'){|f| f.write value }
+    def write_breaker_states(value)
+      File.open(breaker_states_filename, 'w'){|f| f.write value }
     end
 
     def breaker_string_index
-      breakers_mappings[id]
+      SmartpanelNode.config.breaker_mappings[id]
     end
 
     def state
-      breakers_states_string[breaker_string_index]
+      breaker_states_string[breaker_string_index]
     end
 
     def state=(value)
-      new_breakers_states_string = breakers_states_string
-      new_breakers_states_string[breaker_string_index] = value.to_s
-      self.breakers_states_string = new_breakers_states_string
+      new_breaker_states_string = breaker_states_string
+      new_breaker_states_string[breaker_string_index] = value.to_s
+      self.breaker_states_string = new_breaker_states_string
     end
 
     def flip_bit(bit)
