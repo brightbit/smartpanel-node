@@ -4,7 +4,7 @@ require 'typhoeus'
 module SmartpanelNode
   class BreakerPoller
     def initialize
-      base_url = 'https://smartpanel-staging.herokuapp.com/api'
+      base_url = SmartpanelNode.config.api_endpoint
       breakers = SmartpanelNode.config.breaker_mappings.keys.map {|id| SmartpanelNode::Breaker.new id }
 
       loop do
