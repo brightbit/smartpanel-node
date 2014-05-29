@@ -50,7 +50,7 @@ module SmartpanelNode
     end
 
     def write_breaker_states(value)
-      File.open(breaker_states_filename, 'w'){|f| f.write "export BREAKER_STATES=value" }
+      File.open(breaker_states_filename, 'w'){|f| f.write "export BREAKER_STATES=#{value}" }
     end
 
     def breaker_string_index
