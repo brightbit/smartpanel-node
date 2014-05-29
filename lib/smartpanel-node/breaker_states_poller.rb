@@ -8,7 +8,7 @@ module SmartpanelNode
       breakers = SmartpanelNode.config.breaker_mappings.keys.map {|id| SmartpanelNode::Breaker.new id }
 
       loop do
-        breakers.each do |breaker|
+        breakers.first(2).each do |breaker|
           begin
             username = SmartpanelNode.config.username
             auth_token = SmartpanelNode.config.auth_token
