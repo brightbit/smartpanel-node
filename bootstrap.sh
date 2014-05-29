@@ -14,7 +14,12 @@ apt-get install ruby-dev
 gem install bundler --no-ri --no-rdoc
 
 # Checkout this repository (wow! so meta)
-git clone https://github.com/brightbit/smartpanel-node /etc/smartpanel
+if [ ! -d /etc/smartpanel ]; then
+  git clone https://github.com/brightbit/smartpanel-node /etc/smartpanel
+else
+  #TODO: Be more forceful than a rebase
+  cd /etc/smartpanel && git pull --rebase origin master
+fi
 
 # Install bundle files
 cd /etc/smartpanel
