@@ -24,3 +24,10 @@ fi
 # Install bundle files
 cd /etc/smartpanel
 bundle install --path vendor/bundle --binstubs vendor/bundle/bin
+
+# Setup init script
+cp /etc/smartpanel/smartpanel.sh /etc/init.d/smartpanel
+update-rc.d smartpanel defaults
+
+# Start smartpanel script
+/etc/init.d/smartpanel start
