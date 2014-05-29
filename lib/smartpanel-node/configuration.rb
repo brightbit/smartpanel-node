@@ -4,8 +4,8 @@ module SmartpanelNode
       :breaker_mappings, :total_breakers, :breaker_states
 
     def initialize
-      @username   = ENV['USERNAME']
-      @auth_token = ENV['AUTH_TOKEN']
+      @username   = ENV['API_USERNAME']
+      @auth_token = ENV['API_AUTH_TOKEN']
 
       @pins = {
         data:  ENV.fetch('PIN_DATA'),
