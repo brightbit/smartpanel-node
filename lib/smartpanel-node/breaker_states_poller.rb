@@ -1,12 +1,12 @@
 require 'json'
 require 'typhoeus'
 
-base_url = 'https://smartpanel-staging.herokuapp.com/api'
-breakers = SmartpanelNode.config.breaker_mappings.keys.map {|id| SmartpanelNode::Breaker.new id }
-
 module SmartpanelNode
   class BreakerPoller
     def initialize
+      base_url = 'https://smartpanel-staging.herokuapp.com/api'
+      breakers = SmartpanelNode.config.breaker_mappings.keys.map {|id| SmartpanelNode::Breaker.new id }
+
       loop do
         breakers.each do |breaker|
           begin
