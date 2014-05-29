@@ -32,7 +32,8 @@ module SmartpanelNode
     private
     def ensure_breaker_states_file_exists
       unless File.exists? breaker_states_filename
-        File.write breaker_states_filename, "0" * SmartpanelNode.config.total_breakers
+        string = "export BREAKER_STATES=" + "0" * SmartpanelNode.config.total_breakers
+        File.write breaker_states_filename, string
       end
     end
 
@@ -45,11 +46,11 @@ module SmartpanelNode
     end
 
     def read_breaker_states
-      File.open(breaker_states_filename, 'rb'){|f| f.read }
+      File.open(breaker_states_filename, 'rb'){|f| f.read }[22..-1]
     end
 
     def write_breaker_states(value)
-      File.open(breaker_states_filename, 'w'){|f| f.write value }
+      File.open(breaker_states_filename, 'w'){|f| f.write "export BREAKER_STATES=value" }
     end
 
     def breaker_string_index

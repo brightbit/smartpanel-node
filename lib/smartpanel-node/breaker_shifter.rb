@@ -11,12 +11,12 @@ module SmartpanelNode
 
     def initialize
       shift_state_filename = SmartpanelNode.config.breaker_states_store
-      send_bits File.open(shift_state_filename, 'r'){|f| f.read }
+      send_bits File.open(shift_state_filename, 'r'){|f| f.read }[22..-1]
 
       notifier = INotify::Notifier.new
 
       notifier.watch(shift_state_filename, :modify) do
-        send_bits File.open(shift_state_filename, 'r'){|f| f.read }
+        send_bits File.open(shift_state_filename, 'r'){|f| f.read }[22..-1]
       end
 
       notifier.run
