@@ -15,3 +15,7 @@ gem install bundler --no-ri --no-rdoc
 
 # Checkout this repository (wow! so meta)
 git clone https://github.com/brightbit/smartpanel-node /etc/smartpanel
+
+# Install bundle files
+cd /etc/smartpanel
+bundle install --path vendor/bundle --binstubs vendor/bundle/bin
