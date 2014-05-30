@@ -10,6 +10,22 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    ZenTest (4.10.0)
+    autotest (4.4.6)
+      ZenTest (>= 4.4.1)
+    awesome_print (1.1.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
+    bond (0.5.1)
+    coderay (1.1.0)
+    columnize (0.8.9)
+    debug_inspector (0.0.2)
+    debugger (1.6.8)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.3.5)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.3.5)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
@@ -17,20 +33,63 @@ GEM
       ffi (>= 1.3.0)
     eventmachine (1.0.3)
     ffi (1.9.3)
+    interception (0.5)
+    jist (1.5.1)
+      json
     json (1.8.1)
+    method_source (0.8.2)
+    minitest (5.3.4)
+    pry (0.9.12.6)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry-awesome_print (9.6.8)
+      awesome_print (~> 1.1.0)
+      pry (~> 0.9.0)
+    pry-debugger (0.2.2)
+      debugger (~> 1.3)
+      pry (~> 0.9.10)
+    pry-doc (0.6.0)
+      pry (~> 0.9)
+      yard (~> 0.8)
+    pry-docmore (0.1.1)
+      pry
+      pry-doc
+    pry-plus (1.0.0)
+      bond
+      jist
+      pry-debugger
+      pry-doc
+      pry-docmore
+      pry-rescue
+      pry-stack_explorer
+    pry-rescue (1.4.1)
+      interception (>= 0.5)
+      pry
+    pry-stack_explorer (0.4.9.1)
+      binding_of_caller (>= 0.7)
+      pry (>= 0.9.11)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.4)
       ffi (>= 0.5.0)
+    rb-readline (0.5.1)
+    slop (3.5.0)
     typhoeus (0.6.8)
       ethon (>= 0.7.0)
+    yard (0.8.7.4)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  autotest
   dotenv (~> 0.11.1)
   json (~> 1.8.1)
+  minitest
   pi_piper!
+  pry-awesome_print
+  pry-plus
   rb-fsevent (~> 0.9.4)
   rb-inotify (~> 0.9.4)
+  rb-readline
   typhoeus (~> 0.6.8)
