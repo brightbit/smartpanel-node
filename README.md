@@ -1,3 +1,4 @@
+[![](https://codeship.io/projects/0d586220-c9fe-0131-eedd-762fd394af47/status)](https://www.codeship.io/projects/22499)
 # SmartPanel Node
 This is the software that runs on the SmartPanel devices. Currently this is a Raspberry Pi (Model B, Rev 2) running Raspbian Jan 2015 (Debian Wheezy).
 
