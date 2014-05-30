@@ -3,6 +3,10 @@ ENV['RACK_ENV'] = 'test'
 ENV['API_ENDPOINT'] =' http://example.com/api'
 ENV['BREAKER_STATES_STORE'] = 'tmp/states.env.test'
 
+require 'minitest/autorun'
+require 'minitest/pride'
+require 'pry-rescue/minitest'
+
 class MiniTest::Spec
   class << self
     def delete_breaker_states_store
@@ -15,8 +19,4 @@ end
 
 MiniTest::Spec.delete_breaker_states_store
 
-require 'pry-rescue/minitest'
 require 'smartpanel-node'
-require 'minitest/spec'
-require 'minitest/autorun'
-require 'minitest/pride'
