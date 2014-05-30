@@ -3,7 +3,7 @@ require 'typhoeus'
 
 module SmartpanelNode
   class BreakerPoller
-    def initialize
+    def run
       base_url = SmartpanelNode.config.api_endpoint
       breakers = SmartpanelNode.config.breaker_mappings.keys.map {|id| SmartpanelNode::Breaker.new id }
 
