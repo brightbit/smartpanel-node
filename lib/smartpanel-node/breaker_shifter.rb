@@ -1,6 +1,6 @@
 require 'pi_piper'
 
-if RUBY_PLATFORM.downcase.include?("darwin")
+unless SmartpanelNode.production?
   PiPiper::Platform.driver = PiPiper::StubDriver.new#(logger: Logger.new($stdout))
 end
 
@@ -39,7 +39,7 @@ module SmartpanelNode
     def send_bits(data)
       reset
       SmartpanelNode.config.total_breakers.times do |byte|
-        if PiPiper::Platform.driver.is_a? PiPiper::StubDriver
+        if SmartpanelNode.development?
           puts "Breaker Pin #{byte} #{data[byte] == "1" ? "on" : "off"}"
         end
 
