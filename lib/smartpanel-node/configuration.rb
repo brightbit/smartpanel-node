@@ -17,9 +17,14 @@ module SmartpanelNode
 
       @breaker_states_store = @root + ENV.fetch('BREAKER_STATES_STORE')
 
-      @breaker_mappings = JSON.parse ENV.fetch('BREAKER_MAPPINGS')
+      @breaker_mappings = hash_keys_to_i JSON.parse(ENV.fetch 'BREAKER_MAPPINGS')
       @breaker_states = ENV.fetch('BREAKER_STATES')
       @total_breakers = @breaker_mappings.count
+    end
+
+    private
+    def hash_keys_to_i(hash)
+      hash.inject({}){|hash, (key, value)| hash[Integer key] = value; hash }
     end
   end
 end
