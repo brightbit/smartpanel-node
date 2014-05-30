@@ -29,5 +29,7 @@ require 'smartpanel-node/breaker_states_poller'
 shifter_thread = Thread.new { SmartpanelNode::BreakerShifter.new }
 poller_thread = Thread.new { SmartpanelNode::BreakerPoller.new }
 
-shifter_thread.join
-poller_thread.join
+if ENV['DAEMONIZE'] == 'true'
+  shifter_thread.join
+  poller_thread.join
+end
