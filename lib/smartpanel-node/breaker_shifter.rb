@@ -14,13 +14,13 @@ module SmartpanelNode
 
     def initialize
       shift_state_filename = SmartpanelNode.config.breaker_states_store
-      send_bits File.open(shift_state_filename, 'r'){|f| f.read }[22..-1]
+      send_bits File.open(shift_state_filename, 'r'){|f| f.read }.to_s[22..-1]
 
       notifier = InotifyProxy.new shift_state_filename.dirname.to_s
 
       notifier.watch -> do
         file = File.open(shift_state_filename, 'r'){|f| f.read }
-        send_bits file[22..-1] unless file.empty?
+        send_bits file.to_s[22..-1] unless file.empty?
       end
 
       notifier.run

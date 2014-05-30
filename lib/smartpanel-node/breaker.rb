@@ -50,7 +50,7 @@ module SmartpanelNode
     end
 
     def read_breaker_states
-      File.open(breaker_states_filename, 'rb'){|f| f.read }[22..-1]
+      File.open(breaker_states_filename, 'rb'){|f| f.read }.to_s[22..-1]
     end
 
     def write_breaker_states(value)
