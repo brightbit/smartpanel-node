@@ -3,6 +3,10 @@ module SmartpanelNode
     attr_reader :breaker_states_filename, :id
 
     def initialize(id)
+      unless SmartpanelNode.config.breaker_mappings.has_key? id
+        raise "Invalid Breaker ID: #{id}"
+      end
+
       @breaker_states_filename = SmartpanelNode.config.breaker_states_store
       @id = id
 
