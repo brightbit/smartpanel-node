@@ -1,7 +1,7 @@
 require 'pi_piper'
 
 unless SmartpanelNode.production?
-  PiPiper::Platform.driver = PiPiper::StubDriver.new#(logger: Logger.new($stdout))
+  PiPiper::Platform.driver = PiPiper::StubDriver.new
 end
 
 module SmartpanelNode
